@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{EFE4A54B-938C-461E-9424-526614416CAB}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.ANNExampleCode PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TrainANNReadLetters.cs">
+    <Files>
+      <File FileName="TrainANNReadLetters.cs" Line="58" Column="1" />
+      <File FileName="TestManager.cs" />
+      <File FileName="ANNReadLetters.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" />
+      <File FileName="ANN.cs" Line="1" Column="1" />
+      <File FileName="ImageLoader.cs" />
+      <File FileName="Utility.cs" />
+      <File FileName="Settings.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ANNExampleCode" expanded="True">
+            <Node name="ANNExampleCode" expanded="True">
+              <Node name="TrainANNReadLetters.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
