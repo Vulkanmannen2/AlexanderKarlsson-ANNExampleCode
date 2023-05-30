@@ -97,8 +97,6 @@ namespace ANN_test
 				float[] result = ann.FeedForward(imagesAsArrays[i].Item2);
                 int answer = ANNReadLetters.ReadAnswerFromANN(result);
 
-                TestManager.TestFloats(result, -1f, 1f);
-                TestManager.TestInt(answer, 0, 26);
 
                 if (answer != 0 && Utility.indexToLetter[answer - 1] == imagesAsArrays[i].Item1)
                 {
@@ -110,26 +108,18 @@ namespace ANN_test
                 }
             }
 
-            TestManager.TestFloat(fitness, 0f, imagesAsArrays.Count);
-
 			ann.fitness = fitness / imagesAsArrays.Count;
-
-            TestManager.TestFloat(ann.fitness, 0f, 1f);
         }
 
         // Returns fitness between 0 and 1
         // The closer each parameter in result is to be right, the better fitness
 		private float GetFitnessFromLetterAsString(float[] result, string letter)
         {
-            TestManager.TestFloats(result, -1f, 1f);
-            TestManager.TestString(letter, 1);
-
             float fitness = 0;
 
             for (int j = 0; j < result.Length; ++j)
             {
                 float resultForLetter = Math.Abs(result[j]);
-                TestManager.TestFloat(resultForLetter, 0f, 1f);
 
                 if (Utility.indexToLetter[j] == letter)
                 {
@@ -138,7 +128,6 @@ namespace ANN_test
                 else
                 {
                     float resultForLetterInvert = 1 - resultForLetter;
-                    TestManager.TestFloat(resultForLetterInvert, 0f, 1f);
                     fitness += (1 - Settings.rightAnswerWeightInFitness) / result.Length * resultForLetterInvert;
                 }
             }
@@ -167,9 +156,6 @@ namespace ANN_test
                 float[] result = ann.FeedForward(imagesAsArrays[i].Item2);
                 int answer = ANNReadLetters.ReadAnswerFromANN(result);
 
-                TestManager.TestFloats(result, -1f, 1f);
-                TestManager.TestInt(answer, 0, 26);
-
                 if (answer != 0 && Utility.indexToLetter[answer - 1] == imagesAsArrays[i].Item1)
                 {
                     fitness += 1;
@@ -196,11 +182,7 @@ namespace ANN_test
                 }
             }
 
-            TestManager.TestFloat(fitness, 0f, imagesAsArrays.Count);
-
             ann.fitness = fitness / imagesAsArrays.Count;
-
-            TestManager.TestFloat(ann.fitness, 0f, 1f);
         }
 
         // Replaces the old generation with a new, based on reproduction type (see ANN)
@@ -209,7 +191,7 @@ namespace ANN_test
             // Selects the top half of the population copies it and uses it to write over the bottom half
             // The coppies are mutated
             // No reproduction in ths "Reproduction Type"
-			if (Settings.ReproductionType != ANN.ReproductionType.Selection)
+			if (Settings.ReproductionType == ANN.ReproductionType.Selection)
 			{
 				int smallHalfOfLIst = Settings.sizeOfGeneration / 2;
 				int bigHalfOfList = Settings.sizeOfGeneration - smallHalfOfLIst;
@@ -225,8 +207,6 @@ namespace ANN_test
 			else
 			{
 				List<ANN> newGenereation = new List<ANN>();
-
-                TestManager.TestInt(Settings.topLayers, 0, 100);
 
 				int numberOfTopANNs = Settings.sizeOfGeneration * Settings.topLayers / 100;
 

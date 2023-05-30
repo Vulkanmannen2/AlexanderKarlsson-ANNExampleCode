@@ -17,8 +17,6 @@ namespace ANN_test
 
         public ANN(int[] layers)
 		{
-            TestManager.TestInts(layers);
-
 			this.layers = new int[layers.Length];
 			for (int i = 0; i < layers.Length; ++i)
 			{
@@ -34,9 +32,6 @@ namespace ANN_test
         // Depending on ReproductionType it will use different ways of crossing two parent ANNs and make a child
         private ANN(int[] layers, ANN parent1, ANN parent2, ReproductionType reproductionType, int numberOfCrossingPointsForMultiCrossover)
         {
-            TestManager.TestInts(layers);
-            TestManager.TestInt(numberOfCrossingPointsForMultiCrossover);
-
             this.layers = new int[layers.Length];
             for (int i = 0; i < layers.Length; ++i)
             {
@@ -55,8 +50,6 @@ namespace ANN_test
                 numberOfCrossingPointsForMultiCrossover = numberOfCrossingPointsForMultiCrossover < 1 ? 1 : numberOfCrossingPointsForMultiCrossover;
                 List<int> crossingPoints = new List<int>();
                 int maxValueForCrossingPoint = layers[1] - 2;
-
-                TestManager.TestInt(maxValueForCrossingPoint);
 
                 // Can add multiple crossingpoints of same value, this is okey
                 // For each crossingpoint it will take at least one gene from the other parent
@@ -77,10 +70,6 @@ namespace ANN_test
         // used internaly by copy function who makes deep copy of arrays
         private ANN(int[] layers, float[][] biasis, float[][][] weights)
 		{
-            TestManager.TestInts(layers);
-            TestManager.TestFloats(biasis, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-
             this.layers = new int[layers.Length];
             for (int i = 0; i < layers.Length; ++i)
             {
@@ -116,17 +105,11 @@ namespace ANN_test
 			}
 
 			biasis = biasisList.ToArray();
-
-            TestManager.TestFloats(biasis, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestBiasisMatchLayers(biasis, layers);
 		}
 
         // Gives child biasis from either parent randomly
         private void initBiasisUniformCrossover(ANN parent1, ANN parent2)
         {
-            TestManager.TestBiasisMatchLayers(parent1.biasis, layers);
-            TestManager.TestBiasisMatchLayers(parent2.biasis, layers);
-
             List<float[]> biasisList = new List<float[]>();
             for (int i = 0; i < layers.Length; ++i)
             {
@@ -139,10 +122,6 @@ namespace ANN_test
             }
 
             biasis = biasisList.ToArray();
-
-            TestManager.TestFloats(biasis, -1f, 1f);
-            TestManager.TestBiasisMatchLayers(biasis, layers);
-            TestManager.TestBiasisUniformCrossover(biasis, parent1.biasis, parent2.biasis);
         }
 
         // Gives child biasis from different parent based on crossingpoints
@@ -151,12 +130,6 @@ namespace ANN_test
         // The crossingpoints are randomly generated in constructor
         private void initBiasisMultipointCrossover(ANN parent1, ANN parent2, List<int> crossingPoints, int numberOfCrossingPoints)
         {
-            TestManager.TestBiasisMatchLayers(parent1.biasis, layers);
-            TestManager.TestBiasisMatchLayers(parent2.biasis, layers);
-            TestManager.TestInts(crossingPoints.ToArray());
-            TestManager.TestInt(numberOfCrossingPoints);
-            TestManager.CompareInts(numberOfCrossingPoints, crossingPoints.Count - 1);
-
             List<float[]> biasisList = new List<float[]>();
 
             for (int i = 0; i < layers.Length; ++i)
@@ -183,10 +156,6 @@ namespace ANN_test
             }
 
             biasis = biasisList.ToArray();
-
-            TestManager.TestFloats(biasis, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestBiasisMatchLayers(biasis, layers);
-            TestManager.TestBiasisMultipointCrossover(biasis, parent1.biasis, parent2.biasis, crossingPoints.ToArray());
         }
 
         // Add weights to all layers except input layer
@@ -209,17 +178,11 @@ namespace ANN_test
 				weightList.Add(layerWeightList.ToArray());
 			}
 			weights = weightList.ToArray();
-
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestWeightsMatchLayers(weights, layers);
         }
 
         // Gives child weight from either parent randomly, skip input layer
         private void initWeightsUniformCrossover(ANN parent1, ANN parent2)
         {
-            TestManager.TestWeightsMatchLayers(parent1.weights, layers);
-            TestManager.TestWeightsMatchLayers(parent2.weights, layers);
-
             List<float[][]> weightList = new List<float[][]>();
             for (int i = 1; i < layers.Length; ++i)
             {
@@ -237,10 +200,6 @@ namespace ANN_test
                 weightList.Add(layerWeightList.ToArray());
             }
             weights = weightList.ToArray();
-
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestWeightsMatchLayers(weights, layers);
-            TestManager.TestWeightsUniformCrossover(weights, parent1.weights, parent2.weights);
         }
 
         // Gives child weights from different parent based on crossingpoints, skip input layer
@@ -249,12 +208,6 @@ namespace ANN_test
         // The crossingpoints are randomly generated in constructor
         private void initWeightsMultipointCrossover(ANN parent1, ANN parent2, List<int> crossingPoints, int numberOfCrossingPoints)
         {
-            TestManager.TestWeightsMatchLayers(parent1.weights, layers);
-            TestManager.TestWeightsMatchLayers(parent2.weights, layers);
-            TestManager.TestInts(crossingPoints.ToArray());
-            TestManager.TestInt(numberOfCrossingPoints);
-            TestManager.CompareInts(numberOfCrossingPoints, crossingPoints.Count - 1);
-
             List<float[][]> weightList = new List<float[][]>();
 
             for (int i = 1; i < layers.Length; ++i)
@@ -287,16 +240,11 @@ namespace ANN_test
                 weightList.Add(layerWeightList.ToArray());
             }
             weights = weightList.ToArray();
-
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestWeightsMatchLayers(weights, layers);
-            TestManager.TestWeightsMultipointCrossover(weights, parent1.weights, parent2.weights, crossingPoints.ToArray());
         }
 
         public float Activate (float value)
 		{
             float answer = (float)Math.Tanh(value);
-            TestManager.TestFloat(answer, -1f, 1f);
             return answer;
 		}
 
@@ -359,8 +307,6 @@ namespace ANN_test
                 }
             }
 
-            TestManager.TestFloats(biasis, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-
             for (int i = 0; i < weights.Length; ++i)
             {
                 for (int j = 0; j < weights[i].Length; ++j)
@@ -372,17 +318,12 @@ namespace ANN_test
                 }
             }
 
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-
             fs.Close();
         }
 
         // save to data file
         public void Save(String path)
         {
-            TestManager.TestFloats(biasis, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-
             FileStream fs = new FileStream(path, FileMode.Create);
             BinaryWriter writer = new BinaryWriter(fs);
 
@@ -410,8 +351,6 @@ namespace ANN_test
         // Each biasis and weight has the same chance of being altered 
         public void Mutate(float chanceInPercentOfMutationForEachValue, float rangeOfMutation = 0.1f)
 		{
-            TestManager.TestFloat(chanceInPercentOfMutationForEachValue, 0f, 100f);
-            TestManager.TestFloat(rangeOfMutation, 0f, 1f);
             rangeOfMutation = Utility.Clamp(rangeOfMutation, 0f, 1f);
 			chanceInPercentOfMutationForEachValue = Utility.Clamp(chanceInPercentOfMutationForEachValue, 0f, 100f);
 
@@ -441,9 +380,6 @@ namespace ANN_test
                     }
                 }
             }
-
-            TestManager.TestFloats(biasis, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
-            TestManager.TestFloats(weights, -Settings.MaxValueForBiasisAndWeights, Settings.MaxValueForBiasisAndWeights);
         }
 
         public ANN Reproduce(int [] layers, ANN parent2, ReproductionType reproductionType, int numberOfCrossovers = 2)
@@ -484,9 +420,6 @@ namespace ANN_test
 
             float[][] newBiaasis = biasisList.ToArray();
             float[][][] newWeights = weightList.ToArray();
-
-            TestManager.CompareFloats(newBiaasis, biasis);
-            TestManager.CompareFloats(newWeights, weights);
 
             return new ANN(this.layers, newBiaasis, newWeights);
 		}

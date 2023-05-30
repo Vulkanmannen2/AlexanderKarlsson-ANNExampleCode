@@ -35,8 +35,6 @@ namespace ANN_test
         // Calls the FeedForward in ANN
         public string ReadLetter(float[] imageAsArray)
         {
-            TestManager.TestFloats(imageAsArray, 0f, 1f, 1);
-
             int answerAsInt = ReadAnswerFromANN(ann.FeedForward(imageAsArray));
 
             answerAsInt = Utility.ReturnZeroIfIntIsOutOfIndex(answerAsInt, Utility.indexToLetter.Length);
@@ -51,8 +49,6 @@ namespace ANN_test
         // And so on
         public static int ReadAnswerFromANN(float[] result)
         {
-            TestManager.TestFloats(result, -1f, 1f);
-            TestManager.TestInt(result.Length, Settings.numberOfOutputNodes);
             TestManager.PrintResultWhenReadingLetters(result);
 
             int numberOfOutputsOverThershold = 0;

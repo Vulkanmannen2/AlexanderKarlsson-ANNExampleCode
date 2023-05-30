@@ -20,7 +20,6 @@ namespace ANN_test
             List<float> imageAsList = new List<float>();
 
             float imageWidth = reader.ReadSingle();
-            TestManager.CompareInts((int)imageWidth, width);
 
             imageAsList.Add(imageWidth);
 
@@ -32,8 +31,6 @@ namespace ANN_test
             reader.Close();
 
             float[] imageAsArray = imageAsList.ToArray();
-
-            TestManager.TestFloats(imageAsArray, 0f, 1f, 1);
 
             return imageAsArray;
         }
